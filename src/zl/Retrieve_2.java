@@ -8,7 +8,7 @@ public class Retrieve_2 {
 
 	static int order = -1;
 
-	static String getEssence(String initial, int length) {
+	public static String getEssence(String initial, int length) {
 
 		if (length <= 0) {
 			return "";
@@ -43,6 +43,9 @@ public class Retrieve_2 {
 
 		for (int i = 0; i < finalArray.size(); i++) {
 			String current = finalArray.get(i);
+			if (current.length() > length) {
+				current = "";
+			}
 			currentFinalString = createExpectedString(list_1);
 			int finalStringSize = currentFinalString.length();
 
@@ -58,7 +61,10 @@ public class Retrieve_2 {
 
 				Collections.sort(list_1, new CustomComparator());
 				list_1 = getArrayTillPosition(list_1, i);
-				list_1.set(list_1.size() - 1, "");
+				if (list_1.size() > 1) {
+					list_1.set(list_1.size() - 1, "");
+
+				}
 				list_2.add("");
 
 				for (int j = 0; j < list_1.size(); j++) {
@@ -70,15 +76,8 @@ public class Retrieve_2 {
 						String result = createExpectedString(list11).trim();
 						if (length - result.length() < difference
 								&& result.length() < length) {
-							System.out.println("Current string: '" + result
-									+ "' of length: " + result.length()
-									+ ", diff: " + difference + "\n");
 							currentFinalString = result;
 						}
-						System.out.println(result.length() == length);
-						System.out.println(String.valueOf(result.length())
-								+ " : " + String.valueOf(length)
-								+ "Comparing result.length() == length ");
 						if (result.length() == length) {
 							System.out.println(result);
 							return result;
@@ -94,15 +93,8 @@ public class Retrieve_2 {
 						Collections.sort(list22, new CustomComparator());
 						String result = createExpectedString(list22).trim();
 						if (length - result.length() < difference) {
-							System.out.println("Current string: '" + result
-									+ "' of length: " + result.length()
-									+ ", diff: " + difference + "\n");
 							currentFinalString = result;
 						}
-						System.out.println(result.length() == length);
-						System.out.println(String.valueOf(result.length())
-								+ " : " + String.valueOf(length)
-								+ "Comparing result.length() == length ");
 						if (result.length() == length) {
 							System.out.println(result);
 							return result;
@@ -115,7 +107,7 @@ public class Retrieve_2 {
 			list_1.add(current);
 
 		}
-		if (initial.length() < length) {
+		if (initial.length() < length || currentFinalString.equals("")) {
 			currentFinalString = createExpectedString(list_1);
 		}
 		return currentFinalString.trim();
